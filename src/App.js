@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import NavBar from './component/NavBar'
+import News from './component/News'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom"
+import LoadingBar from 'react-top-loading-bar'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+const App =()=> {
+  const [progress,setProgress] = useState(0)
+
+  
+
+    return (
+      <div>
+        
+        <Router>
+          <LoadingBar
+            color='#f11946'
+            progress={progress}
+            // height="3"
+            // onLoaderFinished={setProgress(0)}
+            
+          />
+          
+          <NavBar />
+          <Switch>
+
+            
+            <Route exact path="/"><News setProgress={setProgress} key="home" category="general"/></Route>
+            <Route exact path="/general"><News setProgress={setProgress} key="general" category="general"/></Route>
+            <Route exact path="/entertainment"><News setProgress={setProgress} key="entertainment" category="entertainment"/></Route>
+            <Route exact path="/health"><News setProgress={setProgress} key="health" category="health"/></Route>
+            <Route exact path="/science"><News setProgress={setProgress} key="science" category="science"/></Route>
+            <Route exact path="/sports"><News setProgress={setProgress} key="sports" category="sports"/></Route>
+            <Route exact path="/technology"><News setProgress={setProgress} key="technology" category="technology"/></Route>
+
+
+
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
+
+
+export default App
